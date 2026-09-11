@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="topo__titulo">
+      <span class="marca">Molde</span>
+      <h1>Configuração da IA</h1>
+    </div>
+  </header>
+
+  <section id="painelChave" class="chave">
+    <div class="chave__abas" role="tablist">
+      <button class="chave__aba" data-provedor="gemini" role="tab" type="button">Gemini</button>
+      <button class="chave__aba" data-provedor="openrouter" role="tab" type="button">OpenRouter</button>
+      <button class="chave__aba" data-provedor="anthropic" role="tab" type="button">Anthropic</button>
+    </div>
+
+    <p class="chave__nota" id="notaProvedor"></p>
+
+    <label for="inputChave">Chave da API</label>
+    <input id="inputChave" type="password" autocomplete="off">
+
+    <label for="inputModelo">Modelo</label>
+    <input id="inputModelo" type="text" autocomplete="off" spellcheck="false">
+
+    <p class="chave__aviso">Fica só neste navegador, sem criptografia.</p>
+    <div class="chave__acoes">
+      <button id="btnSalvarChave" class="btn btn--principal" type="button">Salvar</button>
+      <button id="btnApagarChave" class="btn btn--fantasma" type="button">Apagar chave</button>
+    </div>
+    <p class="chave__ok" id="avisoSalvo" hidden>Salvo.</p>
+  </section>
+
+  <footer class="rodape">
+    Os anúncios capturados e o botão de reescrever ficam no painel flutuante,
+    na própria página do produto na Shopee.
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

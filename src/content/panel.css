@@ -1,0 +1,312 @@
+/* panel.css — painel flutuante do Seller Center.
+   Namespace fec3d- em tudo para não colidir com o CSS da Shopee. */
+
+#fec3d-painel {
+  --ink: #14161a;
+  --surface: #1d2026;
+  --line: #2c313a;
+  --text: #e8eaed;
+  --muted: #8b939f;
+  --filamento: #ff6b35;
+  --petg: #4ecdc4;
+
+  position: fixed;
+  z-index: 2147483646;
+  right: 20px;
+  bottom: 20px;
+  width: 440px;
+  background: var(--ink);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  overflow: hidden;
+}
+
+/* A faixa fina no topo é uma linha de filamento extrudado — a única
+   licença decorativa do painel. */
+#fec3d-painel::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--filamento), var(--petg));
+}
+
+.fec3d-painel__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.fec3d-painel__marca {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fec3d-painel__fechar {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+.fec3d-painel__fechar:hover { color: var(--text); }
+.fec3d-painel__fechar:focus-visible { outline: 2px solid var(--petg); outline-offset: 2px; }
+
+.fec3d-painel__conteudo { padding: 14px; }
+
+.fec3d-painel__vazio {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.fec3d-card {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.fec3d-card img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: var(--surface);
+}
+.fec3d-card strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+  margin-bottom: 3px;
+}
+
+.fec3d-meta {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.fec3d-log {
+  margin-top: 12px;
+  max-height: 260px;
+  overflow-y: auto;
+  display: grid;
+  gap: 4px;
+}
+.fec3d-log__linha {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  line-height: 1.45;
+  padding-left: 14px;
+  position: relative;
+  color: var(--muted);
+}
+.fec3d-log__linha::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.fec3d-log__linha--ok { color: var(--petg); }
+.fec3d-log__linha--aviso { color: #f2b544; }
+.fec3d-log__linha--erro { color: #ff6060; }
+
+.fec3d-painel__base { padding: 0 14px 14px; }
+
+.fec3d-btn {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.fec3d-btn:hover:not(:disabled) { border-color: var(--filamento); }
+.fec3d-btn:focus-visible { outline: 2px solid var(--petg); outline-offset: 2px; }
+.fec3d-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.fec3d-btn--principal { background: var(--filamento); border-color: var(--filamento); color: #14161a; }
+.fec3d-btn--principal:hover:not(:disabled) { background: #ff7d4d; }
+
+@media (prefers-reduced-motion: reduce) {
+  #fec3d-painel * { transition: none !important; }
+}
+
+/* ---- seleção do que copiar ---- */
+.fec3d-opcoes {
+  margin-top: 12px;
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.fec3d-opcao {
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 12.5px;
+}
+.fec3d-opcao:hover { background: #23272f; }
+
+.fec3d-opcao input { margin: 0; accent-color: var(--filamento); cursor: pointer; }
+.fec3d-opcao input:focus-visible { outline: 2px solid var(--petg); outline-offset: 2px; }
+
+.fec3d-opcao em {
+  font-style: normal;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+}
+
+.fec3d-opcao--inativa { opacity: 0.4; cursor: not-allowed; }
+.fec3d-opcao--inativa:hover { background: var(--surface); }
+
+/* ---- referência: os dados do original, sempre à mão ---- */
+.fec3d-ref {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.fec3d-ref > summary {
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+.fec3d-ref > summary::-webkit-details-marker { display: none; }
+.fec3d-ref > summary::before {
+  content: "▸";
+  font-size: 9px;
+  transition: transform 0.15s;
+}
+.fec3d-ref[open] > summary::before { transform: rotate(90deg); }
+.fec3d-ref > summary:hover { color: var(--text); }
+.fec3d-ref > summary:focus-visible { outline: 2px solid var(--petg); outline-offset: -2px; }
+
+.fec3d-ref__bloco { padding: 10px; border-top: 1px solid var(--line); }
+
+.fec3d-ref__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.fec3d-ref__cabecalho > span {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fec3d-copiar {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--muted);
+  font-size: 10.5px;
+  padding: 2px 7px;
+  cursor: pointer;
+}
+.fec3d-copiar:hover { color: var(--petg); border-color: var(--petg); }
+.fec3d-copiar:focus-visible { outline: 2px solid var(--petg); outline-offset: 2px; }
+
+.fec3d-ref__texto {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #c5ccd6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.fec3d-ref__texto--longo { max-height: 160px; overflow-y: auto; }
+
+.fec3d-ref__linha {
+  display: grid;
+  grid-template-columns: minmax(0, 40%) minmax(0, 1fr);
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+.fec3d-ref__linha > span { color: var(--muted); word-break: break-word; }
+.fec3d-ref__linha > em {
+  font-style: normal;
+  color: #c5ccd6;
+  word-break: break-word;
+}
+
+.fec3d-ref__fotos { display: flex; flex-wrap: wrap; gap: 5px; }
+.fec3d-ref__fotos img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 5px;
+  background: var(--ink);
+  display: block;
+}
+.fec3d-ref__fotos a:focus-visible { outline: 2px solid var(--petg); outline-offset: 2px; }
+
+.fec3d-ref__origem {
+  display: block;
+  padding: 8px 10px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.fec3d-ref__origem:hover { color: var(--filamento); }
+
+/* ---- alerta de captura incompleta ---- */
+.fec3d-alerta {
+  margin-top: 12px;
+  padding: 9px 11px;
+  border: 1px solid #6b4a12;
+  border-left-width: 3px;
+  border-radius: 7px;
+  background: #24200f;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #e0cfa4;
+}
+.fec3d-alerta strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #f2b544;
+  font-size: 12px;
+}

@@ -1,0 +1,94 @@
+{
+  "manifest_version": 3,
+  "name": "Molde — Cadastro Shopee",
+  "version": "0.1.0",
+  "description": "Aproveita categoria e características de um anúncio de referência e preenche o cadastro no Seller Center.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "storage",
+    "scripting",
+    "activeTab",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://shopee.com.br/*",
+    "https://seller.shopee.com.br/*",
+    "https://*.susercontent.com/*",
+    "https://api.anthropic.com/*",
+    "https://openrouter.ai/*",
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Molde",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://shopee.com.br/*",
+        "https://seller.shopee.com.br/*"
+      ],
+      "js": [
+        "src/config/selectors.js",
+        "src/lib/dom.js",
+        "src/lib/normalize.js",
+        "src/lib/campos.js",
+        "src/content/extractor.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://seller.shopee.com.br/*"
+      ],
+      "js": [
+        "src/content/filler.js"
+      ],
+      "css": [
+        "src/content/panel.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://shopee.com.br/*",
+        "https://seller.shopee.com.br/*"
+      ],
+      "js": [
+        "src/content/lancador.js"
+      ],
+      "css": [
+        "src/content/lancador.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/inject/net-hook.js"
+      ],
+      "matches": [
+        "https://shopee.com.br/*",
+        "https://seller.shopee.com.br/*"
+      ]
+    }
+  ]
+}
